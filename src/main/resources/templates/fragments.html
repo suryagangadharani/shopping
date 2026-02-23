@@ -1,0 +1,64 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" th:fragment="nav">
+    <div class="container">
+
+        <!-- Brand -->
+        <a class="navbar-brand fw-bold" href="/">
+            Mens Fashion
+        </a>
+
+        <!-- Toggle -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navNav"
+            aria-controls="navNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Nav Items -->
+        <div class="collapse navbar-collapse" id="navNav">
+            <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                <!-- Cart -->
+                <li class="nav-item me-3 position-relative">
+                    <a class="nav-link p-0" href="/cart">
+                        <i class="bi bi-cart3 fs-5"></i>
+                        <span th:if="${cartItemCount != null and cartItemCount > 0}"
+                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                            style="font-size: 0.7rem;">
+                            <span th:text="${cartItemCount}">0</span>
+                        </span>
+                    </a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+
+                <li class="nav-item" sec:authorize="hasRole('ADMIN')">
+                    <a class="nav-link" href="/admin/dashboard">
+                        <i class="bi bi-speedometer2"></i> Admin
+                    </a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="/account">
+                        <i class="bi bi-person-circle"></i>
+                        <span sec:authentication="name"></span>
+                    </a>
+                </li>
+
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <form th:action="@{/logout}" method="post" class="d-inline">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                        <button class="btn btn-sm btn-danger rounded-pill">
+                            Logout
+                        </button>
+                    </form>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

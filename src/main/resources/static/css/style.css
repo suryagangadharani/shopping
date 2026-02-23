@@ -1,0 +1,709 @@
+/* ===================================
+   ROOT VARIABLES (Light Professional)
+=================================== */
+:root {
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --secondary: #0ea5e9;
+
+    --bg-main: #f9fafb;
+    --bg-surface: #ffffff;
+    --bg-soft: #f3f4f6;
+
+    --text-primary: #111827;
+    --text-secondary: #4b5563;
+    --text-muted: #6b7280;
+
+    --border-color: #e5e7eb;
+    --border-soft: rgba(0, 0, 0, 0.05);
+
+    --success: #16a34a;
+    --danger: #dec8c8;
+
+    --radius-lg: 16px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+
+    --shadow-soft: 0 4px 20px rgba(0, 0, 0, 0.05);
+    --shadow-hover: 0 12px 35px rgba(0, 0, 0, 0.08);
+}
+
+/* ===================================
+   BODY
+=================================== */
+body {
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    margin: 0;
+    min-height: 100vh;
+}
+@media (max-width: 576px) {
+    .card img {
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .card-title {
+        font-size: 14px;
+    }
+
+    .card-text {
+        font-size: 12px;
+    }
+}
+
+/* ===================================
+   NAVBAR (Clean Glass Light)
+=================================== */
+.navbar {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+    padding: 0.9rem 0;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--primary) !important;
+}
+
+.navbar-nav .nav-link {
+    color: var(--text-secondary) !important;
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-sm);
+    transition: 0.25s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--primary) !important;
+    background: var(--bg-soft);
+}
+
+/* ===================================
+   HERO
+=================================== */
+.hero {
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(to bottom, #ffffff, #f9fafb);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.hero h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin: auto;
+}
+
+/* ===================================
+   CARDS (Elegant & Clean)
+=================================== */
+.card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.card-body {
+    padding: 1.75rem;
+}
+
+.card-title {
+    font-weight: 700;
+}
+
+.card-text {
+    color: var(--text-secondary);
+}
+
+.card-img-top {
+    height: 250px;
+    object-fit: cover;
+    border-top-left-radius: var(--radius-lg);
+    border-top-right-radius: var(--radius-lg);
+}
+/* Make cards equal height */
+.card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+    transition: 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Fix image size */
+.card-img-top {
+    height: 180px;
+    object-fit: cover;
+}
+
+/* Clean mobile spacing */
+@media (max-width: 576px) {
+    #products {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .card-title {
+        font-size: 14px;
+    }
+
+    .card-text {
+        font-size: 12px;
+    }
+
+    .card-footer strong {
+        font-size: 14px;
+    }
+
+    .btn-sm {
+        padding: 4px 10px;
+        font-size: 12px;
+    }
+}
+
+/* ===================================
+   FORMS
+=================================== */
+.form-control,
+.form-select {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem 1rem;
+    transition: 0.2s;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15);
+}
+
+.form-label {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ===================================
+   BUTTONS
+=================================== */
+.btn {
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    transition: 0.2s ease;
+}
+
+.btn-primary {
+    background: var(--primary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+.btn-outline-primary {
+    border: 1px solid var(--primary);
+    color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+    background: var(--primary);
+    color: white;
+}
+
+/* ===================================
+   TABLES (Clean Ecommerce Style)
+=================================== */
+.table {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+.table thead {
+    background: var(--bg-soft);
+}
+
+.table th {
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.table tbody tr {
+    transition: 0.2s ease;
+}
+
+.table tbody tr:hover {
+    background: #f3f4f6;
+}
+
+/* ===================================
+   ALERTS
+=================================== */
+.alert-success {
+    background: #ecfdf5;
+    border: 1px solid #bbf7d0;
+    color: #15803d;
+}
+
+.alert-danger {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: #ceaeae;
+}
+
+/* ===================================
+   SIDEBAR (Admin Clean Look)
+=================================== */
+.sidebar {
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-color);
+}
+
+.sidebar .nav-link {
+    color: var(--text-secondary) !important;
+    padding: 0.8rem 1.5rem;
+    border-left: 3px solid transparent;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    background: var(--bg-soft);
+    color: var(--primary) !important;
+    border-left: 3px solid var(--primary);
+}
+
+/* ===================================
+   STAT CARDS
+=================================== */
+.stat-card {
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-soft);
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-label {
+    color: var(--text-muted);
+}
+
+/* ===================================
+   PAGINATION
+=================================== */
+.pagination .page-link {
+    background: white;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.pagination .page-link:hover {
+    background: var(--bg-soft);
+    color: var(--primary);
+}
+
+.pagination .active .page-link {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* ===================================
+   RESPONSIVE
+=================================== */
+@media (max-width: 992px) {
+    .hero h1 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+}
+
+/* ===================================
+   MOBILE-FIRST IMPROVEMENTS
+=================================== */
+
+/* Better container spacing */
+.container {
+    padding-left: 1.2rem;
+    padding-right: 1.2rem;
+}
+
+/* Improve button tap size */
+.btn {
+    min-height: 44px;
+    font-size: 0.95rem;
+}
+
+/* Improve navbar for mobile */
+.navbar-nav {
+    margin-top: 1rem;
+}
+
+.navbar-nav .nav-link {
+    padding: 0.75rem 1rem;
+}
+
+/* ===================================
+   RESPONSIVE TABLE → CARD STYLE
+=================================== */
+
+@media (max-width: 768px) {
+
+    .table thead {
+        display: none;
+    }
+
+    .table {
+        border: none;
+    }
+
+    .table tbody tr {
+        display: block;
+        background: white;
+        margin-bottom: 1rem;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        border: 1px solid #eee;
+    }
+
+    .table tbody td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border: none;
+        font-size: 0.9rem;
+    }
+
+    .table tbody td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--text-muted);
+    }
+
+    /* Product image mobile */
+    .table img {
+        width: 70px;
+        height: 70px;
+    }
+
+    /* Quantity input full width */
+    .input-group {
+        width: 100%;
+    }
+}
+
+/* ===================================
+   PRODUCT CARDS MOBILE
+=================================== */
+
+@media (max-width: 768px) {
+
+    .card-img-top {
+        height: 200px;
+    }
+
+    .card-body {
+        padding: 1.2rem;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+}
+
+/* ===================================
+   HERO MOBILE
+=================================== */
+
+@media (max-width: 768px) {
+
+    .hero {
+        min-height: auto;
+        padding: 3rem 1rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+}
+
+/* ===================================
+   STICKY CHECKOUT BUTTON (MOBILE)
+=================================== */
+
+@media (max-width: 768px) {
+
+    .mobile-sticky-checkout {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        padding: 1rem;
+        border-top: 1px solid #e5e7eb;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+        z-index: 1000;
+    }
+
+    body {
+        padding-bottom: 90px;
+    }
+}
+
+/* ===================================
+   BETTER FORM SPACING MOBILE
+=================================== */
+
+@media (max-width: 576px) {
+
+    .form-control,
+    .form-select {
+        font-size: 16px;
+        /* Prevent zoom on iOS */
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+}
+
+/* ===================================
+   SMOOTH ANIMATIONS
+=================================== */
+
+.card,
+.btn,
+.nav-link,
+.table tbody tr {
+    transition: all 0.25s ease-in-out;
+}
+
+/* ===================================
+   ADVANCED MOBILE EXPERIENCE (PRO)
+=================================== */
+
+@media (max-width: 768px) {
+
+    /* App-like body spacing */
+    body {
+        padding-top: 10px;
+        padding-bottom: 100px;
+    }
+
+    /* Container tighter spacing */
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    /* Headings cleaner hierarchy */
+    h1 { font-size: 1.8rem; font-weight: 700; }
+    h2 { font-size: 1.5rem; font-weight: 600; }
+    h3 { font-size: 1.2rem; font-weight: 600; }
+
+    /* Cards more modern on mobile */
+    .card {
+        border-radius: 18px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+        margin-bottom: 1.2rem;
+    }
+
+    .card-body {
+        padding: 1.2rem;
+    }
+
+    /* Product card improvements */
+    .card-img-top {
+        height: 220px;
+        border-radius: 18px 18px 0 0;
+    }
+
+    .card-title {
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        font-size: 0.85rem;
+    }
+
+    /* Buttons feel like mobile app */
+    .btn {
+        width: 100%;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 0.75rem 1rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+    .btn:active {
+        transform: scale(0.98);
+    }
+
+    /* Navbar mobile spacing */
+    .navbar {
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 0.85rem 1rem;
+        border-radius: 10px;
+    }
+
+    /* Table mobile card style refinement */
+    .table tbody tr {
+        border-radius: 16px;
+        padding: 1rem 1.2rem;
+    }
+
+    .table tbody td {
+        font-size: 0.9rem;
+        padding: 0.6rem 0;
+    }
+
+    /* Product image in tables */
+    .table img {
+        width: 75px;
+        height: 75px;
+        border-radius: 12px;
+    }
+
+    /* Forms more comfortable */
+    .form-control,
+    .form-select {
+        padding: 0.9rem 1rem;
+        border-radius: 12px;
+    }
+
+    /* Alerts softer */
+    .alert {
+        border-radius: 14px;
+        font-size: 0.9rem;
+    }
+
+    /* Pagination centered */
+    .pagination {
+        justify-content: center;
+    }
+
+    /* Stat cards */
+    .stat-card {
+        border-radius: 18px;
+        padding: 1.3rem;
+    }
+
+    .stat-number {
+        font-size: 1.8rem;
+    }
+}
+
+/* ===================================
+   EXTRA SMALL DEVICES (Phones <480px)
+=================================== */
+
+@media (max-width: 480px) {
+
+    .card-img-top {
+        height: 190px;
+    }
+
+    .hero h1 {
+        font-size: 1.6rem;
+    }
+
+    .hero p {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        font-size: 0.95rem;
+    }
+}
+
+/* ===================================
+   SMOOTH MICRO-INTERACTIONS
+=================================== */
+
+.card:hover {
+    transform: translateY(-6px);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+}
+
+/* Smooth fade-in on load */
+body {
+    animation: fadeInPage 0.4s ease-in-out;
+}
+
+@keyframes fadeInPage {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}

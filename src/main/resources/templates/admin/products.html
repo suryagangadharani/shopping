@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Products</title>
+  <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+
+<body>
+  <div class="container mt-4">
+    <div th:if="${success}" class="alert alert-success" th:text="${success}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h1>Products</h1>
+      <a th:href="@{/admin/products/add}" class="btn btn-primary">Add Product</a>
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Brand</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr th:each="p : ${products}">
+          <td th:text="${p.id}"></td>
+          <td><a th:href="@{/product/{id}(id=${p.id})}" th:text="${p.name}"></a></td>
+          <td th:text="${p.brand}"></td>
+          <td th:text="${p.category}"></td>
+          <td th:text="${p.price}"></td>
+          <td th:text="${p.stockQuantity}"></td>
+          <td>
+            <a th:href="@{/admin/products/{id}/edit(id=${p.id})}" class="btn btn-sm btn-secondary">Edit</a>
+            <form th:action="@{/admin/products/{id}/delete(id=${p.id})}" method="post" style="display:inline;">
+              <button class="btn btn-sm btn-danger" type="submit"
+                onclick="return confirm('Delete this product?');">Delete</button>
+            </form>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div th:if="${totalPages != null}">
+      <nav>
+        <ul class="pagination">
+          <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+            <a class="page-link"
+              th:href="@{/admin/products(page=${currentPage - 1}, size=${10}, sortDir=${sortDir}, search=${search})}">Previous</a>
+          </li>
+          <li class="page-item disabled">
+            <span class="page-link">Page <span th:text="${currentPage + 1}"></span> of <span
+                th:text="${totalPages}"></span></span>
+          </li>
+          <li class="page-item" th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+            <a class="page-link"
+              th:href="@{/admin/products(page=${currentPage + 1}, size=${10}, sortDir=${sortDir}, search=${search})}">Next</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+  </div>
+
+  <!-- Success/Error Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" id="successModalContent">
+        <div class="modal-header">
+          <h5 class="modal-title" id="successModalTitle">Success</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="successModalBody"></div>
+        <div class="modal-footer">
+          <button type="button" id="successOkBtn" class="btn btn-primary">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const successEl = document.getElementById('flashSuccess');
+      const errorEl = document.getElementById('flashError');
+      const modalEl = document.getElementById('successModal');
+      const modalTitle = document.getElementById('successModalTitle');
+      const modalBody = document.getElementById('successModalBody');
+      const modalContent = document.getElementById('successModalContent');
+      const okBtn = document.getElementById('successOkBtn');
+      const bsModal = new bootstrap.Modal(modalEl);
+
+      if (successEl && successEl.textContent.trim() !== '') {
+        modalTitle.textContent = 'Success';
+        modalBody.textContent = successEl.textContent.trim();
+        modalContent.classList.remove('modal-error');
+        modalContent.classList.add('modal-success');
+        bsModal.show();
+      } else if (errorEl && errorEl.textContent.trim() !== '') {
+        modalTitle.textContent = 'Error';
+        modalBody.textContent = errorEl.textContent.trim();
+        modalContent.classList.remove('modal-success');
+        modalContent.classList.add('modal-error');
+        bsModal.show();
+      }
+
+      okBtn && okBtn.addEventListener('click', function () {
+        bsModal.hide();
+        // redirect to same page (preserve query string)
+        window.location.href = window.location.pathname + window.location.search;
+      });
+    });
+  </script>
+
+</body>
+
+</html>
