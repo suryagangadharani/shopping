@@ -8,6 +8,8 @@ import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -22,6 +24,7 @@ import java.time.format.DateTimeFormatter;
 
 @Service
 public class EmailService {
+    private static final Logger log = LoggerFactory.getLogger(EmailService.class);
 
     @Autowired
     private JavaMailSender javaMailSender;
@@ -32,10 +35,8 @@ public class EmailService {
     @Async
     public void sendOrderConfirmationEmail(Order order) {
         try {
-            System.out.println("=== EMAIL SENDING STARTED ===");
-            System.out.println("Order ID: " + order.getId());
-            System.out.println("Recipient: " + order.getUser().getEmail());
-            System.out.println("Sender Email: " + senderEmail);
+            log.info("Sending order confirmation email. orderId={}, recipient={}",
+                    order.getId(), order.getUser().getEmail());
             
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -48,30 +49,17 @@ public class EmailService {
             helper.setText(content, true);
 
             // Generate PDF Invoice
-            System.out.println("Generating PDF invoice...");
+            log.debug("Generating PDF invoice for orderId={}", order.getId());
             byte[] pdfBytes = generatePdfInvoice(order);
             helper.addAttachment("Invoice_" + order.getId() + ".pdf", new ByteArrayResource(pdfBytes));
 
-            System.out.println("Sending email...");
             javaMailSender.send(message);
-            System.out.println("=== EMAIL SENT SUCCESSFULLY ===");
+            log.info("Order confirmation email sent successfully. orderId={}", order.getId());
 
-        } catch (MessagingException e) {
-            System.err.println("=== EMAIL SENDING FAILED - MessagingException ===");
-            System.err.println("Error: " + e.getMessage());
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.err.println("=== EMAIL SENDING FAILED - IOException ===");
-            System.err.println("Error: " + e.getMessage());
-            e.printStackTrace();
-        } catch (DocumentException e) {
-            System.err.println("=== EMAIL SENDING FAILED - DocumentException ===");
-            System.err.println("Error: " + e.getMessage());
-            e.printStackTrace();
+        } catch (MessagingException | IOException | DocumentException e) {
+            log.error("Failed to send order confirmation email. orderId={}", order.getId(), e);
         } catch (Exception e) {
-            System.err.println("=== EMAIL SENDING FAILED - Unexpected Error ===");
-            System.err.println("Error: " + e.getMessage());
-            e.printStackTrace();
+            log.error("Unexpected error while sending order confirmation email. orderId={}", order.getId(), e);
         }
     }
 

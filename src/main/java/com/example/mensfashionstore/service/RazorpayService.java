@@ -5,6 +5,8 @@ import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 import com.razorpay.Utils;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,7 @@ import jakarta.annotation.PostConstruct;
 
 @Service
 public class RazorpayService {
+    private static final Logger log = LoggerFactory.getLogger(RazorpayService.class);
 
     @Value("${razorpay.key.id}")
     private String keyId;
@@ -46,7 +49,7 @@ public class RazorpayService {
 
             return Utils.verifyPaymentSignature(options, keySecret);
         } catch (RazorpayException e) {
-            e.printStackTrace();
+            log.warn("Failed to verify Razorpay signature for orderId={}", orderId, e);
             return false;
         }
     }

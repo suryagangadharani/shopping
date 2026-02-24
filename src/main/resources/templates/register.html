@@ -25,6 +25,7 @@
                 <h4 class="card-title text-center mb-4">Create Account</h4>
 
                 <form th:action="@{/register}" th:object="${user}" method="post">
+                    <input type="hidden" name="role" value="USER">
 
                     <div class="mb-3">
                         <label class="form-label">Full Name</label>

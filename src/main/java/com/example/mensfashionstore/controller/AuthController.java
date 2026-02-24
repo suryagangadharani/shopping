@@ -4,6 +4,7 @@ import com.example.mensfashionstore.model.User;
 import com.example.mensfashionstore.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +23,7 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegister(Model model, Authentication authentication) {
-        if (authentication != null && authentication.isAuthenticated()) {
+        if (isLoggedIn(authentication)) {
             return "redirect:/";
         }
         model.addAttribute("user", new User());
@@ -60,7 +61,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String showLogin(Authentication authentication) {
-        if (authentication != null && authentication.isAuthenticated()) {
+        if (isLoggedIn(authentication)) {
             return "redirect:/";
         }
         return "login";
@@ -70,5 +71,11 @@ public class AuthController {
     public String loginError(Model model) {
         model.addAttribute("error", "Invalid credentials");
         return "login";
+    }
+
+    private boolean isLoggedIn(Authentication authentication) {
+        return authentication != null
+                && authentication.isAuthenticated()
+                && !(authentication instanceof AnonymousAuthenticationToken);
     }
 }

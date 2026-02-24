@@ -7,6 +7,8 @@ import com.example.mensfashionstore.repository.PaymentRepository;
 import com.example.mensfashionstore.service.EmailService;
 import com.example.mensfashionstore.service.OrderService;
 import com.example.mensfashionstore.service.RazorpayService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @Controller
 @RequestMapping("/payment")
 public class PaymentController {
+    private static final Logger log = LoggerFactory.getLogger(PaymentController.class);
 
     @Autowired
     private OrderService orderService;
@@ -67,7 +70,7 @@ public class PaymentController {
                 try {
                     emailService.sendOrderConfirmationEmail(order);
                 } catch (Exception e) {
-                    System.err.println("Failed to send email: " + e.getMessage());
+                    log.warn("Failed to trigger order confirmation email for orderId={}", dbOrderId, e);
                 }
 
                 // Show Success Page
@@ -76,11 +79,11 @@ public class PaymentController {
                 return "payment_success";
             } else {
                 redirectAttributes.addFlashAttribute("error", "Payment verification failed. Signature mismatch.");
-                return "redirect:/checkout"; // Or where appropriate
+                return "redirect:/cart/checkout";
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("Payment verification flow failed for dbOrderId={}", dbOrderId, e);
             redirectAttributes.addFlashAttribute("error", "Payment verification failed: " + e.getMessage());
             return "redirect:/cart/checkout";
         }

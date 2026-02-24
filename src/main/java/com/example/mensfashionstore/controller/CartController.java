@@ -67,6 +67,7 @@ public class CartController {
     public String addToCart(
             @PathVariable Long id,
             @RequestParam(defaultValue = "1") Integer qty,
+            @RequestParam(defaultValue = "false") boolean buyNow,
             RedirectAttributes redirectAttributes) {
         try {
             Product product = productService.getProductById(id);
@@ -84,6 +85,10 @@ public class CartController {
 
             cartService.addToCart(product, qty);
             redirectAttributes.addFlashAttribute("success", "Product added to cart!");
+
+            if (buyNow) {
+                return "redirect:/cart/checkout";
+            }
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error adding product to cart: " + e.getMessage());
         }
