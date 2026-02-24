@@ -69,8 +69,25 @@ public class Product {
     }
 
     public String getDisplayImageUrl() {
-        if (imageUrl != null && !imageUrl.isEmpty() && (imageUrl.startsWith("http") || imageUrl.startsWith("/"))) {
-            return imageUrl;
+        if (imageUrl == null) {
+            return "/images/placeholder.png";
+        }
+
+        String normalized = imageUrl.trim();
+        if (normalized.isEmpty()) {
+            return "/images/placeholder.png";
+        }
+
+        if (normalized.startsWith("//")) {
+            return "https:" + normalized;
+        }
+
+        if (normalized.startsWith("www.")) {
+            return "https://" + normalized;
+        }
+
+        if (normalized.startsWith("http://") || normalized.startsWith("https://") || normalized.startsWith("/")) {
+            return normalized;
         }
         return "/images/placeholder.png";
     }

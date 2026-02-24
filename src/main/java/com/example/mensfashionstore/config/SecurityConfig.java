@@ -97,7 +97,7 @@ public class SecurityConfig {
                                                                                                 +
                                                                                                 "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; "
                                                                                                 +
-                                                                                                "img-src 'self' data: https:; "
+                                                                                                "img-src 'self' data: https: http:; "
                                                                                                 +
                                                                                                 "font-src 'self' https://cdn.jsdelivr.net; "
                                                                                                 +

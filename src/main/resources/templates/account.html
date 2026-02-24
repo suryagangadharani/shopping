@@ -79,7 +79,7 @@
                                 <ul class="list-unstyled mb-0">
                                     <li th:each="item, iterStat : ${order.items}" th:if="${iterStat.index < 2}"
                                         class="d-flex align-items-center mb-2">
-                                        <img th:src="${item.product.imageUrl}" alt="Product"
+                                        <img th:src="${item.product.displayImageUrl}" alt="Product"
                                             style="width: 40px; height: 40px; object-fit: cover; margin-right: 10px;"
                                             class="rounded border">
                                         <span th:text="${item.product.name} + ' (x' + ${item.quantity} + ')'">Product

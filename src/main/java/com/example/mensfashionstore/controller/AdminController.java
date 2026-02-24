@@ -95,8 +95,9 @@ public class AdminController {
                 String uploadedImageUrl = fileUploadService.saveFile(file);
                 product.setImageUrl(uploadedImageUrl);
             } else if (imageUrl != null && !imageUrl.trim().isEmpty()) {
-                if (fileUploadService.isValidImageUrl(imageUrl)) {
-                    product.setImageUrl(imageUrl);
+                String normalizedImageUrl = normalizeImageUrl(imageUrl);
+                if (fileUploadService.isValidImageUrl(normalizedImageUrl)) {
+                    product.setImageUrl(normalizedImageUrl);
                 } else {
                     product.setImageUrl("/images/placeholder.png");
                 }
@@ -157,14 +158,14 @@ public class AdminController {
             if (file != null && !file.isEmpty()) {
                 // Delete old file if it exists
                 if (existingProduct.getImageUrl() != null && existingProduct.getImageUrl().startsWith("/uploads/")) {
-                    String oldFilename = existingProduct.getImageUrl().replace("/uploads/products/", "");
-                    fileUploadService.deleteFile(oldFilename);
+                    fileUploadService.deleteFile(existingProduct.getImageUrl());
                 }
                 String uploadedImageUrl = fileUploadService.saveFile(file);
                 existingProduct.setImageUrl(uploadedImageUrl);
             } else if (imageUrl != null && !imageUrl.trim().isEmpty()) {
-                if (fileUploadService.isValidImageUrl(imageUrl)) {
-                    existingProduct.setImageUrl(imageUrl);
+                String normalizedImageUrl = normalizeImageUrl(imageUrl);
+                if (fileUploadService.isValidImageUrl(normalizedImageUrl)) {
+                    existingProduct.setImageUrl(normalizedImageUrl);
                 }
             }
 
@@ -188,8 +189,7 @@ public class AdminController {
         try {
             Product product = productService.getProductById(id);
             if (product.getImageUrl() != null && product.getImageUrl().startsWith("/uploads/")) {
-                String filename = product.getImageUrl().replace("/uploads/products/", "");
-                fileUploadService.deleteFile(filename);
+                fileUploadService.deleteFile(product.getImageUrl());
             }
             productService.deleteById(id);
             redirectAttributes.addFlashAttribute("success", "Product deleted successfully!");
@@ -217,8 +217,7 @@ public class AdminController {
                 try {
                     Product product = productService.getProductById(id);
                     if (product.getImageUrl() != null && product.getImageUrl().startsWith("/uploads/")) {
-                        String filename = product.getImageUrl().replace("/uploads/products/", "");
-                        fileUploadService.deleteFile(filename);
+                        fileUploadService.deleteFile(product.getImageUrl());
                     }
                     productService.deleteById(id);
                     deletedCount++;
@@ -481,5 +480,16 @@ public class AdminController {
                 "Error deleting orders: " + e.getMessage());
         }
         return "redirect:/admin/dashboard#" + activeTab;
+    }
+
+    private String normalizeImageUrl(String imageUrl) {
+        String normalized = imageUrl.trim();
+        if (normalized.startsWith("www.")) {
+            return "https://" + normalized;
+        }
+        if (normalized.startsWith("//")) {
+            return "https:" + normalized;
+        }
+        return normalized;
     }
 }

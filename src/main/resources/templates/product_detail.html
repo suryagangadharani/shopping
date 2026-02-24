@@ -67,7 +67,7 @@
             <div class="col-md-6 mb-4">
                 <div th:if="${product.imageUrl != null and product.imageUrl != ''}"
                     class="d-flex align-items-center justify-content-center mb-4">
-                    <img th:src="${product.imageUrl}" class="img-fluid rounded" alt="Product image"
+                    <img th:src="${product.displayImageUrl}" class="img-fluid rounded" alt="Product image"
                         style="max-height: 500px; object-fit: cover; width: 100%;"
                         onerror="this.src='/images/placeholder.png'">
                 </div>

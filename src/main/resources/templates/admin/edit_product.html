@@ -74,7 +74,7 @@
                         <div class="mb-3">
                             <label class="form-label">Current Image</label>
                             <div th:if="${product.imageUrl != null and product.imageUrl != ''}" class="mb-2">
-                                <img th:src="${product.imageUrl}" style="max-width: 200px; max-height: 200px; object-fit: cover; border-radius: 4px;">
+                                <img th:src="${product.displayImageUrl}" style="max-width: 200px; max-height: 200px; object-fit: cover; border-radius: 4px;">
                             </div>
                             <div th:if="${product.imageUrl == null or product.imageUrl == ''}" class="alert alert-warning">
                                 <i class="bi bi-exclamation-triangle"></i> No image currently set

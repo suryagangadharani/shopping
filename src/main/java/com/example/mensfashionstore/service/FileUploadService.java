@@ -60,12 +60,18 @@ public class FileUploadService {
         return "/uploads/products/" + filename;
     }
 
-    public void deleteFile(String filename) throws Exception {
-        if (filename != null && filename.startsWith("/uploads/products/")) {
-            String actualFilename = filename.substring("/uploads/products/".length());
-            Path filepath = Paths.get(uploadDir, actualFilename);
-            Files.deleteIfExists(filepath);
+    public void deleteFile(String imagePath) throws Exception {
+        if (imagePath == null || imagePath.trim().isEmpty()) {
+            return;
         }
+
+        String actualFilename = imagePath;
+        if (imagePath.startsWith("/uploads/products/")) {
+            actualFilename = imagePath.substring("/uploads/products/".length());
+        }
+
+        Path filepath = Paths.get(uploadDir, actualFilename);
+        Files.deleteIfExists(filepath);
     }
 
     public boolean isValidFileExtension(String filename) {
@@ -81,7 +87,13 @@ public class FileUploadService {
             return false;
         }
         try {
-            new java.net.URL(imageUrl);
+            String normalized = imageUrl.trim();
+            if (normalized.startsWith("www.")) {
+                normalized = "https://" + normalized;
+            } else if (normalized.startsWith("//")) {
+                normalized = "https:" + normalized;
+            }
+            new java.net.URL(normalized);
             return true;
         } catch (Exception e) {
             return false;
