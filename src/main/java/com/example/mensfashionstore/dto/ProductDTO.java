@@ -42,10 +42,11 @@ public class ProductDTO {
         if (imageUrl != null && !imageUrl.isEmpty() && (imageUrl.startsWith("http") || imageUrl.startsWith("/"))) {
             return imageUrl;
         }
-        return "/images/placeholder.png";
+        return "/images/placeholder.svg";
     }
 
     public boolean isOutOfStock() {
         return stockQuantity != null && stockQuantity <= 0;
     }
 }
+

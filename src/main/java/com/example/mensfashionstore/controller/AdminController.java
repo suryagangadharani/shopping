@@ -96,13 +96,16 @@ public class AdminController {
                 product.setImageUrl(uploadedImageUrl);
             } else if (imageUrl != null && !imageUrl.trim().isEmpty()) {
                 String normalizedImageUrl = normalizeImageUrl(imageUrl);
-                if (fileUploadService.isValidImageUrl(normalizedImageUrl)) {
+                if (normalizedImageUrl.startsWith("/uploads/")) {
                     product.setImageUrl(normalizedImageUrl);
+                } else if (fileUploadService.isValidImageUrl(normalizedImageUrl)) {
+                    String downloadedImageUrl = fileUploadService.saveImageFromUrl(normalizedImageUrl);
+                    product.setImageUrl(downloadedImageUrl);
                 } else {
-                    product.setImageUrl("/images/placeholder.png");
+                    throw new IllegalArgumentException("Invalid image URL. Please use a direct image link.");
                 }
             } else {
-                product.setImageUrl("/images/placeholder.png");
+                product.setImageUrl("/images/placeholder.svg");
             }
 
             productService.save(product);
@@ -164,8 +167,16 @@ public class AdminController {
                 existingProduct.setImageUrl(uploadedImageUrl);
             } else if (imageUrl != null && !imageUrl.trim().isEmpty()) {
                 String normalizedImageUrl = normalizeImageUrl(imageUrl);
-                if (fileUploadService.isValidImageUrl(normalizedImageUrl)) {
+                if (normalizedImageUrl.startsWith("/uploads/")) {
                     existingProduct.setImageUrl(normalizedImageUrl);
+                } else if (fileUploadService.isValidImageUrl(normalizedImageUrl)) {
+                    if (existingProduct.getImageUrl() != null && existingProduct.getImageUrl().startsWith("/uploads/")) {
+                        fileUploadService.deleteFile(existingProduct.getImageUrl());
+                    }
+                    String downloadedImageUrl = fileUploadService.saveImageFromUrl(normalizedImageUrl);
+                    existingProduct.setImageUrl(downloadedImageUrl);
+                } else {
+                    throw new IllegalArgumentException("Invalid image URL. Please use a direct image link.");
                 }
             }
 
@@ -493,3 +504,4 @@ public class AdminController {
         return normalized;
     }
 }
+

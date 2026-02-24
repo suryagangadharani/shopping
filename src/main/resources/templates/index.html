@@ -326,7 +326,7 @@
                 <div class="card h-100">
 
                     <img th:if="${p.imageUrl != null and p.imageUrl != ''}" th:src="${p.displayImageUrl}" class="card-img-top"
-                        alt="Product image" onerror="this.src='/images/placeholder.png'">
+                        alt="Product image" onerror="this.src='/images/placeholder.svg'">
 
                     <div th:if="${p.imageUrl == null or p.imageUrl == ''}"
                         class="card-img-top bg-light d-flex align-items-center justify-content-center">
@@ -416,3 +416,4 @@
 </body>
 
 </html>
+

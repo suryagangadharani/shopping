@@ -70,12 +70,12 @@ public class Product {
 
     public String getDisplayImageUrl() {
         if (imageUrl == null) {
-            return "/images/placeholder.png";
+            return "/images/placeholder.svg";
         }
 
         String normalized = imageUrl.trim();
         if (normalized.isEmpty()) {
-            return "/images/placeholder.png";
+            return "/images/placeholder.svg";
         }
 
         if (normalized.startsWith("//")) {
@@ -89,6 +89,7 @@ public class Product {
         if (normalized.startsWith("http://") || normalized.startsWith("https://") || normalized.startsWith("/")) {
             return normalized;
         }
-        return "/images/placeholder.png";
+        return "/images/placeholder.svg";
     }
 }
+

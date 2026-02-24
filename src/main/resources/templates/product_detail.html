@@ -69,7 +69,7 @@
                     class="d-flex align-items-center justify-content-center mb-4">
                     <img th:src="${product.displayImageUrl}" class="img-fluid rounded" alt="Product image"
                         style="max-height: 500px; object-fit: cover; width: 100%;"
-                        onerror="this.src='/images/placeholder.png'">
+                        onerror="this.src='/images/placeholder.svg'">
                 </div>
                 <div th:if="${product.imageUrl == null or product.imageUrl == ''}"
                     class="bg-secondary d-flex align-items-center justify-content-center mb-4 text-white rounded"
@@ -136,3 +136,4 @@
 </body>
 
 </html>
+
